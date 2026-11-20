@@ -6,8 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from .database import Base, engine, get_db
 from . import schemas, crud
 from typing import Optional
+from .config import settings
 
-API_KEY = "sk-client-12345"
+API_KEY = settings.API_KEY
 
 async def verify_api_key(x_api_key: str = Header(...)):
     if x_api_key != API_KEY:

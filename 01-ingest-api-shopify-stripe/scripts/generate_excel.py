@@ -33,7 +33,7 @@ for i in range(5000):
         "Montant €": montant_sale,
         "Date Commande": date_sale,
         "Email Client": email_sale,
-        "Source": random.choice(["【entity-shopify¦canonical_name=shopify】", "【entity-SHOPIFY¦canonical_name=shopify】", "【entity-Shopify¦canonical_name=shopify】", "stripe"]),
+        "Source": random.choice(["shopify", "stripe"])
     })
 
 df = pd.DataFrame(data)

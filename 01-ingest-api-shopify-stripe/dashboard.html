@@ -30,7 +30,7 @@
 
 <script>
 const API = "http://localhost:8001";
-const HEADERS = { "X-API-Key": "sk-client-12345" };
+
 
 function cleanSource(raw) {
   const s = String(raw || "").toLowerCase();
@@ -41,7 +41,7 @@ function cleanSource(raw) {
 
 async function load() {
   try {
-    const statsRes = await fetch(API + "/stats", { headers: HEADERS });
+    const statsRes = await fetch(API + "/stats");
     const stats = await statsRes.json();
     console.log("STATS RECUES :", stats);
 
@@ -56,7 +56,7 @@ async function load() {
     document.getElementById('total').textContent = totalOrders;
     document.getElementById('revenue').textContent = totalRev.toLocaleString() + " €";
 
-    const dataRes = await fetch(API + "/data?limit=10", { headers: HEADERS });
+    const dataRes = await fetch(API + "/data?limit=10");
     const data = await dataRes.json();
     console.log("DATA RECUE :", data);
     const rows = data.map(d => {
