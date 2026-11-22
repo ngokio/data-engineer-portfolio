@@ -11,6 +11,8 @@
     .card p { font-size: 28px; margin: 10px 0 0; font-weight: bold; }
     table { width: 100%; background: white; border-collapse: collapse; margin-top: 20px; }
     th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+    button { padding: 8px 15px; margin-right: 5px; border: none; border-radius: 5px; background: #111; color: white; cursor: pointer; }
+    button:hover { background: #333; }
   </style>
 </head>
 <body>
@@ -23,6 +25,11 @@
   </div>
 
   <h2>Dernieres ventes</h2>
+  <div style="margin-bottom: 10px;">
+    <button onclick="loadData('')">Tous</button>
+    <button onclick="loadData('shopify')">Shopify</button>
+    <button onclick="loadData('stripe')">Stripe</button>
+  </div>
   <table>
     <thead><tr><th>Source</th><th>Montant</th><th>Date</th></tr></thead>
     <tbody id="rows"></tbody>
@@ -31,7 +38,6 @@
 <script>
 const API = "http://localhost:8001";
 
-
 function cleanSource(raw) {
   const s = String(raw || "").toLowerCase();
   if (s.includes("shopify")) return "shopify";
@@ -39,7 +45,7 @@ function cleanSource(raw) {
   return s;
 }
 
-async function load() {
+async function loadData(source = "") {
   try {
     const statsRes = await fetch(API + "/stats");
     const stats = await statsRes.json();
@@ -47,16 +53,20 @@ async function load() {
 
     let totalOrders = 0, totalRev = 0;
     stats.forEach(s => {
-      const source = cleanSource(s.source);
+      const src = cleanSource(s.source);
       totalOrders += s.total || 0;
       totalRev += s.total_amount || 0;
-      if (source === 'shopify') document.getElementById('shopify').textContent = s.total + " / " + s.total_amount.toLocaleString() + " €";
-      if (source === 'stripe') document.getElementById('stripe').textContent = s.total + " / " + s.total_amount.toLocaleString() + " €";
+      if (src === 'shopify') document.getElementById('shopify').textContent = s.total + " / " + s.total_amount.toLocaleString() + " €";
+      if (src === 'stripe') document.getElementById('stripe').textContent = s.total + " / " + s.total_amount.toLocaleString() + " €";
     });
     document.getElementById('total').textContent = totalOrders;
     document.getElementById('revenue').textContent = totalRev.toLocaleString() + " €";
 
-    const dataRes = await fetch(API + "/data?limit=10");
+    let url = API + "/data?limit=10";
+    if (source !== "") {
+      url = API + "/data?source=" + source + "&limit=10";
+    }
+    const dataRes = await fetch(url);
     const data = await dataRes.json();
     console.log("DATA RECUE :", data);
     const rows = data.map(d => {
@@ -70,7 +80,7 @@ async function load() {
     console.error(e);
   }
 }
-load();
+loadData("");
 </script>
 </body>
 </html>
