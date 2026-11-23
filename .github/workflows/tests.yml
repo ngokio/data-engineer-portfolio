@@ -1,6 +1,5 @@
 name: Tests
 
-# Quand est-ce que le robot se lance ?
 on:
   push:
     branches: [ main ]
@@ -11,24 +10,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      # 1. GitHub récupère ton code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Il installe Python 3.12 (comme chez toi)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # 3. Il installe tes dépendances
       - name: Install dependencies
         working-directory: 01-ingest-api-shopify-stripe
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4. Il lance tes 4 tests
       - name: Run tests
         working-directory: 01-ingest-api-shopify-stripe
+        env:
+          # Fausses valeurs JUSTE pour les tests sur GitHub
+          # Ce ne sont PAS tes vraies clés
+          API_KEY: test-api-key-for-ci-1234567890
+          DATABASE_URL: sqlite+aiosqlite:///:memory:
         run: pytest -v
