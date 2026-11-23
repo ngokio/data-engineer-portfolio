@@ -17,3 +17,10 @@ def close_engine_after_tests():
         asyncio.run(engine.dispose())
     except Exception:
         pass
+
+
+def pytest_sessionfinish(session, exitstatus):
+    import os
+    # Dernière chance : on force pytest à s'arrêter après les tests
+    # Sinon le moteur Postgres reste ouvert et GitHub reste bloqué 30mn
+    os._exit(exitstatus)
