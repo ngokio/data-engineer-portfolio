@@ -21,6 +21,7 @@ def close_engine_after_tests():
 
 def pytest_sessionfinish(session, exitstatus):
     import os
-    # Dernière chance : on force pytest à s'arrêter après les tests
-    # Sinon le moteur Postgres reste ouvert et GitHub reste bloqué 30mn
-    os._exit(exitstatus)
+    # On ne force la sortie que si les tests ont réussi
+    # Si ça a planté, on laisse pytest afficher la vraie erreur
+    if exitstatus == 0:
+        os._exit(0)

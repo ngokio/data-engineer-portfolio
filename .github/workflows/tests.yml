@@ -27,9 +27,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-ci.txt
 
+      - name: Debug imports
+        working-directory: 01-ingest-api-shopify-stripe
+        env:
+          API_KEY: "test-api-key-for-ci-1234567890"
+          DATABASE_URL: "sqlite+aiosqlite:///./test.db"
+        run: |
+          python -c "import app.main; print('import app.main OK')"
+          python -c "import app.config; print('import config OK')"
+          python -c "import app.database; print('import database OK')"
+          python -m pytest --collect-only -v
+
       - name: Run tests
         working-directory: 01-ingest-api-shopify-stripe
         env:
           API_KEY: "test-api-key-for-ci-1234567890"
           DATABASE_URL: "sqlite+aiosqlite:///./test.db"
-        run: pytest -v
+        run: pytest -v --tb=short
