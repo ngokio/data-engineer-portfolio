@@ -1,4 +1,4 @@
-[Tests](https://github.com/ngokio/data-engineer-portfolio/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/ngokio/data-engineer-portfolio/actions/workflows/tests.yml/badge.svg)
 
 # Data Engineer Portfolio - Christian | Freelance
 
