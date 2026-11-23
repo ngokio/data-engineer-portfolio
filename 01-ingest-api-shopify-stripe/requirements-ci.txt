@@ -1,7 +1,2 @@
 fastapi
-sqlalchemy
-pytest
-httpx
-aiosqlite
-psycopg2-binary
-python-dotenv
+[STRIPPED 72 bytes]

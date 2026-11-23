@@ -7,6 +7,7 @@ from .database import Base, engine, get_db
 from . import schemas, crud
 from typing import Optional
 from .config import settings
+import pandas as pd
 
 API_KEY = settings.API_KEY
 
