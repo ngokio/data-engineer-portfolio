@@ -27,8 +27,6 @@ jobs:
       - name: Run tests
         working-directory: 01-ingest-api-shopify-stripe
         env:
-          # Fausses valeurs JUSTE pour les tests sur GitHub
-          # Ce ne sont PAS tes vraies clés
-          API_KEY: test-api-key-for-ci-1234567890
-          DATABASE_URL: sqlite+aiosqlite:///:memory:
+          API_KEY: "test-api-key-for-ci-1234567890"
+          DATABASE_URL: "sqlite+aiosqlite:///:memory:"
         run: pytest -v
