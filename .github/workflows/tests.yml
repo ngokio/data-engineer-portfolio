@@ -28,5 +28,5 @@ jobs:
         working-directory: 01-ingest-api-shopify-stripe
         env:
           API_KEY: "test-api-key-for-ci-1234567890"
-          DATABASE_URL: "sqlite+aiosqlite:///:memory:"
+          DATABASE_URL: "postgresql+asyncpg://de_user:de_pass@localhost:5433/de_db"
         run: pytest -v
