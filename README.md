@@ -10,7 +10,7 @@ Je construis des API d'ingestion qui transforment des fichiers Excel / (entity-S
 - Disponible sur Malt & LinkedIn
 
 ## Projets
-- 01 - Ingest API 【entity-Shopify¦canonical_name=Shopify】 / Stripe : FastAPI + Postgres + Docker, 5000 lignes Excel nettoyées et ingérées en 5 batchs de 1000
+- 01 - Ingest API (entity-Shopify¦canonical_name=Shopify) / Stripe : FastAPI + Postgres + Docker, 5000 lignes Excel nettoyées et ingérées en 5 batchs de 1000
 - 02 - Dashboard Client : à venir (Module 3)
 
 ## Stack
