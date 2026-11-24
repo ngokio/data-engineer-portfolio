@@ -25,5 +25,18 @@ services:
     depends_on:
       - postgres
 
+  api:
+    build: .
+    container_name: fastapi_api
+    ports:
+      - "8001:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://de_user:de_pass@postgres:5432/de_db
+      API_KEY: dev-key-change-me
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
 volumes:
   pg_data_fastapi:
