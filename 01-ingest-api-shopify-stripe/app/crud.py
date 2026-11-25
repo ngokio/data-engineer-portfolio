@@ -20,7 +20,7 @@ async def bulk_insert(db: AsyncSession, bulk: schemas.BulkCreate):
 async def get_events(db: AsyncSession, source: str = None, limit: int = 100, offset: int = 0):
     query = select(models.DataEvent).order_by(models.DataEvent.created_at.desc())
     if source:
-        query = query.where(models.DataEvent.source == source)
+        query = query.where(func.lower(func.trim(models.DataEvent.source)).like(f"%{source.lower().strip()}%"))
     query = query.limit(limit).offset(offset)
     result = await db.execute(query)
     return result.scalars().all()
