@@ -13,7 +13,7 @@ class DataEvent(Base):
     user_id = Column(Integer, nullable=True)
     amount = Column(Float, nullable=True)
     payload = Column(JSON, nullable=False)  # On garde tout le brut ici
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc).replace(tzinfo=None), index=True)
 
     __table_args__ = (
         Index('ix_source_event_type', 'source', 'event_type'),
