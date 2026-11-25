@@ -8,11 +8,13 @@ from . import schemas, crud
 from typing import Optional
 from .config import settings
 import pandas as pd
+import os
+API_KEY = os.getenv("API_KEY", settings.API_KEY)
 
-API_KEY = settings.API_KEY
 
-async def verify_api_key(x_api_key: str = Header(...)):
-    if x_api_key != API_KEY:
+
+async def verify_api_key(x_api_key: str = Header(..., alias="x-api-key")):
+    if x_api_key.strip() != API_KEY.strip():
         raise HTTPException(status_code=401, detail="API Key invalide")
     return x_api_key
 
